@@ -47,4 +47,18 @@ class Scrabble
     }
   end
 
+  def score_with_multipliers(word, multipliers, word_multiplier=1)
+    if word.length != 7
+      score_with_multiplier(word, multipliers) * word_multiplier
+    else
+      (score_with_multiplier(word, multipliers) + 10) * word_multiplier
+    end
+  end
+
+  def score_with_multiplier(word, multipliers)
+    word.chars.map.with_index do |letter, index|
+      get_letter_point(letter) * multipliers[index]
+    end.reduce(:+)
+  end
+
 end

@@ -133,4 +133,43 @@ class ScrabbleTest < Minitest::Test
     assert_equal expected10, actual10
   end
 
+  def test_it_can_score_with_multipliers
+    game = Scrabble.new
+    expected = 9
+    expected2 = 10
+
+    actual = game.score_with_multipliers("hello", [1,2,1,1,1])
+    actual2 = game.score_with_multipliers("world", [1,2,1,1,1])
+
+    assert_equal expected, actual
+    assert_equal expected2, actual2
+  end
+
+  def test_it_can_score_with_multipliers_and_word_multipliers
+    game = Scrabble.new
+    expected = 18
+
+    actual = game.score_with_multipliers("hello", [1,2,1,1,1], 2)
+
+    assert_equal expected, actual
+  end
+
+  def test_it_adds_ten_points_for_seven_letter_words
+    game = Scrabble.new
+    expected = 58
+
+    actual = game.score_with_multipliers("sparkle", [1,2,1,3,1,2,1], 2)
+
+    assert_equal expected, actual
+  end
+
+  def test_it_scores_word_with_letter_multiplier
+    game = Scrabble.new
+    expected = 9
+
+    actual = game.score_with_multiplier("hello", [1,2,1,1,1])
+
+    assert_equal expected, actual
+  end
+
 end
